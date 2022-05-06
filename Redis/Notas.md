@@ -121,3 +121,23 @@ Redis recomienda usar la siguiente [configuración](https://redis.io/docs/manual
 maxmemory 2mb
 maxmemory-policy allkeys-lru
 ~~~
+
+
+## Implementación de Redis con Node JS
+
+Para realizar la implementación se utliza la libreria de [redis](https://www.npmjs.com/package/redis), para realizar la conexión puede realizar de la siguiente manera: 
+
+```
+import { createClient } from 'redis';
+
+const client = createClient();
+
+client.on('error', (err) => console.log('Redis Client Error', err));
+
+await client.connect();
+
+await client.set('key', 'value');
+const value = await client.get('key');
+```
+
+Se puede observar un ejemplo mas completo en esta [API REST](https://github.com/RicardoNLuisMateos/noderedisexpress/blob/07bef1df5252ed7a32d5db365753e26bb231f583/routers/characterRouter.js) a la cual se le integro el caching utlizando redis.
