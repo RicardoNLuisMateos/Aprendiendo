@@ -141,3 +141,22 @@ const value = await client.get('key');
 ```
 
 Se puede observar un ejemplo mas completo en esta [API REST](https://github.com/RicardoNLuisMateos/noderedisexpress/blob/07bef1df5252ed7a32d5db365753e26bb231f583/routers/characterRouter.js) a la cual se le integro el caching utlizando redis.
+
+## Integracion de Redis con Codeigniter
+
+Para realizar esta integración se hizo uso de la libreria [Predis](https://github.com/predis/predis), En este caso como al instalarla con composer daba errores y no se cargaba la libreria se decidio instalarla manualmente. 
+
+1-. Descargar el zip [Predis](https://github.com/predis/predis)
+
+2-. Descomprimirlo en la carpeta third_party 
+
+![Add Predis](/Redis/Add-Predis.png)
+
+3-. Crear una libreria para realizar la conexión.
+
+![Library Redis](/Redis/Library%20Redis.png)
+
+4-. Ahora solo se llamado donde se quiere utilizar
+
+[Ejemplo Completo](https://github.com/RicardoNLuisMateos/Codeigniter-Redis)
+
