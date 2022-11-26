@@ -1,6 +1,6 @@
 # Creación de tablas / relaciones MYSQL
 
-Las tablas son los elementos más importante dentro de una base de datos ya que se utilizan para almacenar los datos de nuestra aplicación. 
+Las tablas son los elementos más importante dentro de una base de datos ya que se utilizan para almacenar los datos de nuestra aplicación. -- Test Linux
 
 ## Creación de tablas
 Para crear una tabla en Mysql se tiene que tomar en cuenta los siguientes puntos:
