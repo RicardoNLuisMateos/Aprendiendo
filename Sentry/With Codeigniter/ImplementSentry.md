@@ -14,7 +14,7 @@
 ### Dockerfile 
 
 Para instalar la librería de Sentry en Codeigniter se hace uso de composer,
-~~~
+```docker
 FROM php:7.3-apache
 
 #Install Composer
@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip
 RUN docker-php-ext-install zip
-~~~
+```
 
 ### Docker Compose
 
@@ -38,7 +38,7 @@ En el docker compose se define los volumenes, la ruta de este mismo, los puerto 
 ![Folder Structure](/Sentry/Images/Sentry1.png)
 
 Quedado el docker compose de la siguiente manera
-~~~
+```yml
 version: '3.7'
 services:
   webapp:
@@ -48,7 +48,7 @@ services:
       - ./www:/var/www/html
     ports:
       - '80:80'
-~~~
+```
 
 Dando clic derecho sobre el docker-compose.yaml se puede levantar los contenedores, esto desde VSC y teniendo instalada la extención de docker
 ![Folder Structure](/Sentry/Images/Sentry2.png)
@@ -87,19 +87,20 @@ Dando clic derecho sobre el docker-compose.yaml se puede levantar los contenedor
 
 3-. Ahora se tiene que crear un archivo de configuarión en la carpeta "application/config", la cual contendra la configuración de Sentry, para esto se crear un archivo llamado "sentry.php".
 
-~~~
+```php
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $config['sentry_dsn'] = 'https://your-dsn-key-from-sentry.io';
 $config['sentry_environment'] = 'production'; // cambia a 'development' en desarrollo
 $config['sentry_error_types'] = E_ALL & ~E_DEPRECATED & ~E_NOTICE; // registra todos los errores, excepto los deprecados y los avisos
 $config['sentry_send_default_pii'] = true; // envía información personal identificable (PII, por sus siglas en inglés) por defecto
-~~~
+```
 
 4-. Ahora se crear una librería llamada "Sentry.php" en la carpeta "application/libraries" con el siguiente contenido.
 En esta se inicializa Sentry y se crean dos funciones, una para mandar MSG personalizado a Sentry y otra para usarla con las excepciones, en los 'error_types' se configuran los errores que se quieren registrar, en este caso todos.
 
-~~~
+
+```php
 <?php
 require_once 'vendor/autoload.php'; // carga la biblioteca de Sentry
 
@@ -129,5 +130,4 @@ class Sentry {
     }
 
 }
-
-~~~
+```
