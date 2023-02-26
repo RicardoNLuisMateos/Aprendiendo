@@ -81,3 +81,53 @@ Dando clic derecho sobre el docker-compose.yaml se puede levantar los contenedor
 - **Interfaz de docker:** Abriendo la app de docker, dando clic en el contenedor y en terminal.
 
 ![Folder Structure](/Sentry/Images/Sentry9.png)
+
+2-. Una vez dentro del contenedor se tiene que ejecutar el siguiente comando para instalar la librería:  `composer require sentry/sdk`. Esto también se puedo agregar en el dockerfile haciendo uso del volumen. Si se entra al proyecto de Codeigniter ya se ha creado la carpeta vendor, con esto ya se puede empezar a trabajar.
+**NOTA:** El comando se tiene que ejecutar en la razíz del proyecto.
+
+3-. Ahora se tiene que crear un archivo de configuarión en la carpeta "application/config", la cual contendra la configuración de Sentry, para esto se crear un archivo llamado "sentry.php".
+
+~~~
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
+$config['sentry_dsn'] = 'https://your-dsn-key-from-sentry.io';
+$config['sentry_environment'] = 'production'; // cambia a 'development' en desarrollo
+$config['sentry_error_types'] = E_ALL & ~E_DEPRECATED & ~E_NOTICE; // registra todos los errores, excepto los deprecados y los avisos
+$config['sentry_send_default_pii'] = true; // envía información personal identificable (PII, por sus siglas en inglés) por defecto
+~~~
+
+4-. Ahora se crear una librería llamada "Sentry.php" en la carpeta "application/libraries" con el siguiente contenido.
+En esta se inicializa Sentry y se crean dos funciones, una para mandar MSG personalizado a Sentry y otra para usarla con las excepciones, en los 'error_types' se configuran los errores que se quieren registrar, en este caso todos.
+
+~~~
+<?php
+require_once 'vendor/autoload.php'; // carga la biblioteca de Sentry
+
+class Sentry {
+
+    private $ci;
+    private $sentry;
+
+    public function __construct() {
+        $this->ci =& get_instance();
+        $this->ci->load->config('sentry');
+        \Sentry\init(array(
+            'dsn' => $this->ci->config->item('sentry_dsn'),
+            'environment' => $this->ci->config->item('sentry_environment'),
+            'error_types' => $this->ci->config->item('sentry_error_types'),
+            'send_default_pii' => $this->ci->config->item('sentry_send_default_pii'),
+        ));
+        $this->sentry = \Sentry\SentrySdk::getCurrentHub()->getClient();
+    }
+
+    public function captureException($exception) {
+        $this->sentry->captureException($exception);
+    }
+
+    public function captureMessage($message) {
+        $this->sentry->captureMessage($message);
+    }
+
+}
+
+~~~
