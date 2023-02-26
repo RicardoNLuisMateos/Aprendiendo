@@ -67,4 +67,17 @@ Dando clic derecho sobre el docker-compose.yaml se puede levantar los contenedor
 ![Folder Structure](/Sentry/Images/Sentry6.png)
 
 4-. Ahora no muestra una pantalla donde nos da el "DSN" del proyecto, este es el que se utiliza para poder ir registrando los errores en el proyecto, en la instancia de Sentry en el proyecto se tiene que pasar como argumento este DSN.
+
 ### Instalación de Sentry en Codeigniter
+
+1-. Para poder empezar a capturar los errores del proyecto en sentry se tiene que instalar la librería en el proyecto, en este caso como esta hecho desde docker, se tiene que acceder al contenedor, para esto tenemos distintas formas de hacerlo:
+
+- **Comando:** Ejecutando el comantado `docker exec -it nombre-contenedor`
+
+- **VSC:** Si se tiene la extensión de docker en VSC, dando clic en el icono docker en la barra lateral izquierza se abre el siguiente panel, en el cual si se da clic derecho sobre el contener y en "Ättach Shell" se abre una terminal en la cual se entra al contenedor 
+
+![Folder Structure](/Sentry/Images/Sentry8.png)
+
+- **Interfaz de docker:** Abriendo la app de docker, dando clic en el contenedor y en terminal.
+
+![Folder Structure](/Sentry/Images/Sentry9.png)
