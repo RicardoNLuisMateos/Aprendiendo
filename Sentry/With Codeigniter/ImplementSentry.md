@@ -131,3 +131,39 @@ class Sentry {
 
 }
 ```
+
+5-. Ahora ya se puede utilizar Sentry, para realizar pruebas de esto en un acontrolador se manda a llamar de la siguiente manera
+
+```php
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+require APPPATH . '/libraries/REST_Base.php';
+
+class Test extends REST_Base {
+
+    public function __construct() {
+        parent::__construct();
+        $this->load->library('sentry');
+    }
+    
+    public function index_get()
+    {
+        $data = [ 
+            "uno" => 'number one',
+            "two" => 'number two',
+            "three" => 'number three',
+            "TEST" => 'Ricardo N.Luis Mateos'
+        ];
+        $this->sentry->captureMessage('A custom log message RICARDO');
+        if(!empty($data)){
+            $this->error("Validation User");
+        }
+        $this->respose($data);
+    }
+}
+```
+
+Al ejecutar el request y checar el dashboard del proyecto en Sentry se puede vizualizar el error.
+![Folder Structure](/Sentry/Images/Sentry10.png)
+
+Como se puede observar en la imagen anterior se ha registrado el error, también se encuentran otros dos, esto se registraron al estar configurando Sentry, ya que no se estaba llamado al sdk en la línea `$this->sentry = \Sentry\SentrySdk::getCurrentHub()->getClient();`
