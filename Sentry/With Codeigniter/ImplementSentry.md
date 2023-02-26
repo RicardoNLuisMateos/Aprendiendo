@@ -14,7 +14,7 @@
 ### Dockerfile 
 
 Para instalar la librería de Sentry en Codeigniter se hace uso de composer,
-```docker
+```docker syntax
 FROM php:7.3-apache
 
 #Install Composer
