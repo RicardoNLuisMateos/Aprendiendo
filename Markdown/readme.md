@@ -6,7 +6,8 @@
 <p align="center">
   <img src="https://readme-typing-svg.demolab.com/?lines=Hola%2C+soy+Ricardo%2C+actualmente+trabajo+como+desarrollador+Back-End!;Hi%2C+I'm+Ricardo%2C+I'm+currently+working+as+a+Back-End+developer!&font=Fira%20Code&center=true&width=800&height=50&duration=4000&pause=1000" alt="">
 </p>
-<img src="giphy.gif" alt="docker" width="100%" height=""/>
+<img src="giphy1.gif" alt="docker" width="100%"/>
+<img src="giphy.gif" alt="docker" width="100%"/>
 
 
 <h3 align="left">Languages and Tools I am learning:</h3>
