@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD033 MD041 -->
 <p align="center">
-  <h3 align="center">⌨️ Perfil</h3>
+  <h3 align="center">⌨️</h3>
 </p>
 
 <p align="center">
