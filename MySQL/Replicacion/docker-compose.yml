@@ -1,0 +1,114 @@
+version: '3.8'
+
+services:
+  node1:
+    image: mysql/mysql-server:8.0.12
+    container_name: node1
+    restart: unless-stopped
+    env_file: .env.node1
+    environment:
+      - MYSQL_USER:${MYSQL_USER}
+      - MYSQL_PASSWORD:${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
+    command: 
+      --default-authentication-plugin=mysql_native_password
+      --sql_mode=NO_ENGINE_SUBSTITUTION
+      --server_id=1
+      --log_bin='mysql-bin-1.log'
+      --enforce_gtid_consistency='ON'
+      --log_slave_updates='ON'
+      --gtid_mode='ON'
+      --transaction_write_set_extraction='XXHASH64'
+      --binlog_checksum='NONE'
+      --master_info_repository='TABLE'
+      --relay_log_info_repository='TABLE'
+      --plugin_load='group_replication.so'
+      --relay_log_recovery='ON'
+      --group_replication_start_on_boot='OFF'
+      --group_replication-group_name='aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
+      --group_replication_local_address="node1:33061"
+      --group_replication_group_seeds='node1:33061,node2:33061,node3:33061'
+      --loose_group_replication_single_primary-mode='OFF'
+      --loose_group_replication_enforce_update_everywhere_checks='ON'
+    ports:
+      - "3301:3306"
+    volumes:
+      - /node1/data:/var/lib/mysql
+      - /node1/log/mysql:/var/log/mysql
+    networks:
+      - mysql_network
+  node2:
+    image: mysql/mysql-server:8.0.12
+    container_name: node2
+    restart: unless-stopped
+    env_file: .env.node1
+    environment:
+      - MYSQL_USER:${MYSQL_USER}
+      - MYSQL_PASSWORD:${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
+    command: 
+      --default-authentication-plugin=mysql_native_password
+      --sql_mode=NO_ENGINE_SUBSTITUTION
+      --server_id=2
+      --log_bin='mysql-bin-1.log'
+      --enforce_gtid_consistency='ON'
+      --log_slave_updates='ON'
+      --gtid_mode='ON'
+      --transaction_write_set_extraction='XXHASH64'
+      --binlog_checksum='NONE'
+      --master_info_repository='TABLE'
+      --relay_log_info_repository='TABLE'
+      --plugin_load='group_replication.so'
+      --relay_log_recovery='ON'
+      --group_replication_start_on_boot='OFF'
+      --group_replication-group_name='aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
+      --group_replication_local_address="node2:33061"
+      --group_replication_group_seeds='node1:33061,node2:33061,node3:33061'
+      --loose_group_replication_single_primary-mode='OFF'
+      --loose_group_replication_enforce_update_everywhere_checks='ON'
+    ports:
+      - "3302:3306"
+    volumes:
+      - /node2/data:/var/lib/mysql
+      - /node2/log/mysql:/var/log/mysql
+    networks:
+      - mysql_network
+  node3:
+    image: mysql/mysql-server:8.0.12
+    container_name: node3
+    restart: unless-stopped
+    env_file: .env.node1
+    environment:
+      - MYSQL_USER:${MYSQL_USER}
+      - MYSQL_PASSWORD:${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
+    command: 
+      --default-authentication-plugin=mysql_native_password
+      --sql_mode=NO_ENGINE_SUBSTITUTION
+      --server_id=3
+      --log_bin='mysql-bin-1.log'
+      --enforce_gtid_consistency='ON'
+      --log_slave_updates='ON'
+      --gtid_mode='ON'
+      --transaction_write_set_extraction='XXHASH64'
+      --binlog_checksum='NONE'
+      --master_info_repository='TABLE'
+      --relay_log_info_repository='TABLE'
+      --plugin_load='group_replication.so'
+      --relay_log_recovery='ON'
+      --group_replication_start_on_boot='OFF'
+      --group_replication-group_name='aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
+      --group_replication_local_address="node3:33061"
+      --group_replication_group_seeds='node1:33061,node2:33061,node3:33061'
+      --loose_group_replication_single_primary-mode='OFF'
+      --loose_group_replication_enforce_update_everywhere_checks='ON'
+    ports:
+      - "3303:3306"
+    volumes:
+      - /node3/data:/var/lib/mysql
+      - /node3/log/mysql:/var/log/mysql
+    networks:
+      - mysql_network
+
+networks:
+  mysql_network:
